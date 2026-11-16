@@ -1,0 +1,54 @@
+MEU DINHEIRO - SITE PRÓPRIO COM SINCRONIZAÇÃO
+=============================================
+
+O que tem nesta pasta
+- index.html            o app
+- config.js             onde você cola os dados do Supabase (passo 4)
+- supabase-setup.sql    cria a tabela no banco (passo 2)
+- manifest.webmanifest, sw.js e os ícones .png: ícone do porquinho, tela cheia e funcionamento offline
+(não apague nenhum arquivo)
+
+PASSO 1 - Criar o banco de dados grátis (Supabase)
+1. Entre em supabase.com e crie uma conta (pode ser com o Google ou GitHub).
+2. Clique em "New project". Escolha um nome (ex.: meu-dinheiro), crie uma senha do banco
+   (guarde, mas você não vai usar no app) e escolha a região South America (São Paulo).
+3. Espere 1 a 2 minutos até o projeto ficar pronto.
+
+PASSO 2 - Criar a tabela
+1. No menu da esquerda, abra "SQL Editor" e clique em "New query".
+2. Abra o arquivo supabase-setup.sql, copie TODO o texto, cole lá e clique em "Run".
+3. Deve aparecer "Success". Isso cria a tabela e as regras que deixam cada pessoa ver só os próprios dados.
+
+PASSO 3 - Facilitar o cadastro
+1. Menu "Authentication" > "Sign In / Providers" (ou "Providers") > "Email".
+2. Desligue "Confirm email" e salve. Assim você cria a conta no app sem precisar confirmar por e-mail.
+
+PASSO 4 - Colar os dados no config.js
+1. No Supabase, abra "Project Settings" > "API" (ou o botão "Connect" no topo).
+2. Copie o "Project URL" e a chave "anon" (também chamada "publishable").
+3. Abra o config.js com o Bloco de Notas, troque os dois textos entre aspas pelos valores copiados e salve.
+
+PASSO 5 - Colocar o site no ar (Netlify, grátis)
+1. Entre em app.netlify.com/drop (crie uma conta se pedir).
+2. Arraste a PASTA "meu-dinheiro" inteira para a página.
+3. Em alguns segundos você recebe um link (ex.: algo.netlify.app).
+   Em "Site configuration" > "Change site name" você escolhe um nome mais bonito.
+
+PASSO 6 - Usar
+1. Abra o link no celular. Toque em "Criar conta" e use seu e-mail e uma senha (mínimo 6 caracteres).
+2. Faça o mesmo e-mail e senha no notebook, tocando em "Entrar".
+3. Adicione à tela inicial:
+   - iPhone (Safari): Compartilhar > Adicionar à Tela de Início.
+   - Android (Chrome): três pontinhos > Instalar app (ou Adicionar à tela inicial).
+
+PASSO 7 - Segurança (recomendado)
+Depois de criar a sua conta, no Supabase vá em Authentication > Sign In / Providers e desligue
+"Allow new users to sign up". Assim ninguém mais consegue criar conta no seu app.
+A chave do config.js é pública por natureza; quem protege os dados é o login e as regras do banco.
+
+DICAS
+- Se você já tem dados no outro app (o do Claude), faça um Backup lá, e use "Restaurar backup" aqui.
+  Ao entrar, os dados são enviados para a nuvem automaticamente.
+- Sem internet o app continua funcionando e salva no aparelho; quando a conexão volta, ele sincroniza.
+- Se editar nos dois aparelhos ao mesmo tempo, vale a última alteração salva.
+- Para atualizar o app no futuro, arraste a pasta de novo no Netlify (aba Deploys).
