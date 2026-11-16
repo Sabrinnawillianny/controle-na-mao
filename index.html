@@ -66,9 +66,10 @@ h2{font-size:13px;margin:20px 0 4px;color:var(--muted);font-weight:600}
 .empty{color:var(--muted);padding:12px 0}
 .lk{background:none;border:0;padding:0;color:var(--accent);font:inherit;font-weight:600;min-height:0;text-decoration:underline}
 .bottom{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--surface);border-top:1px solid var(--line);padding:4px 2px calc(8px + env(safe-area-inset-bottom,0px));z-index:5}
-.bottom button{flex:1;min-height:52px;border:0;background:transparent;font-size:11px;font-weight:600;color:var(--muted)}
+.bottom button{flex:1;min-height:60px;border:0;background:transparent;font-size:12px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.bottom button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .bottom button.on{color:var(--accent)}
-.fab{position:fixed;right:16px;bottom:calc(80px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:28px;border:0;background:var(--accent);color:var(--on);font-size:32px;line-height:1;box-shadow:0 4px 12px rgba(0,0,0,.3);z-index:6}
+.fab{position:fixed;right:16px;bottom:calc(96px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:28px;border:0;background:var(--accent);color:var(--on);font-size:32px;line-height:1;box-shadow:0 4px 12px rgba(0,0,0,.3);z-index:6}
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;z-index:20}
 .sh{background:var(--surface);width:100%;max-width:520px;border-radius:20px 20px 0 0;padding:14px 18px calc(20px + env(safe-area-inset-bottom,0px));max-height:92vh;overflow:auto}
 .sh h3{margin:0;font-size:17px}.sh .top{display:flex;justify-content:space-between;align-items:center}
@@ -251,12 +252,13 @@ var ic=function(p){return'<svg viewBox="0 0 24 24" width="20" height="20" fill="
 var ICO={sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',bk:'<path d="M12 3v12M7 10l5 5 5-5M4 20h16"/>'};
 function tbtn(cls,dark){var l=dark?'Ativar modo claro':'Ativar modo escuro';return'<button class="'+cls+'" data-a="theme" aria-label="'+l+'" title="'+l+'">'+ic(dark?ICO.sun:ICO.moon)+'</button>'}
 function bbtn(cls){return'<button class="'+cls+'" data-a="open" data-v="bk" aria-label="Backup dos dados" title="Backup dos dados">'+ic(ICO.bk)+'</button>'}
+var ICO={home:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>',cards:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>',contas:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18"/><path d="M8 2v4"/><path d="M16 2v4"/></svg>',movs:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h15"/><path d="M15 4l4 4-4 4"/><path d="M20 16H5"/><path d="M9 12l-4 4 4 4"/></svg>',fixos:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>'};
 var NAV=[['home','Resumo','Resumo'],['cards','Cartões','Cartões'],['contas','Contas','Contas do mês'],['movs','Movim.','Movimentações'],['fixos','Fixos','Fixos']];
 function html(){var dark=D.theme!=='light',t=ui.tab,v=t==='home'?vHome():t==='cards'?vCards():t==='contas'?vContas():t==='movs'?vMovs():vFixos(),title=NAV.filter(function(n){return n[0]===t})[0][2];
 var hb='<div class="hb">'+tbtn('btn ic',dark)+bbtn('btn ic')+'</div>';
 return'<nav class="side"><b>Meu dinheiro</b><button class="new" data-a="open" data-v="l">+ Novo lançamento</button>'+NAV.map(function(n){return'<button class="'+(t===n[0]?'on':'')+'" data-a="go" data-v="'+n[0]+'">'+n[2]+'</button>'}).join('')+'<div class="sp"></div><div class="icrow">'+tbtn('',dark)+bbtn('')+'</div></nav>'+
 '<main><div class="head"><h1>'+title+'</h1>'+hb+'</div>'+syncLine()+(noStore?'<div class="toast">Este navegador não permite salvar dados. Use o Backup para não perder o que lançar.</div>':'')+(t==='home'?mnav():'')+v+'</main>'+
-'<div class="bottom">'+NAV.map(function(n){return'<button class="'+(t===n[0]?'on':'')+'" data-a="go" data-v="'+n[0]+'">'+n[1]+'</button>'}).join('')+'</div><button class="fab" data-a="open" data-v="l" aria-label="Novo lançamento">+</button>'+sheet()+(ui.lg?loginView():'')}
+'<div class="bottom">'+NAV.map(function(n){return'<button class="'+(t===n[0]?'on':'')+'" data-a="go" data-v="'+n[0]+'">'+ICO[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')+'</div><button class="fab" data-a="open" data-v="l" aria-label="Novo lançamento">+</button>'+sheet()+(ui.lg?loginView():'')}
 var app=document.getElementById('app');
 function render(){D.theme==='light'?document.documentElement.setAttribute('data-theme','light'):document.documentElement.setAttribute('data-theme','dark');var y=window.scrollY,so=app.querySelector('.sh'),st=so?so.scrollTop:0;app.innerHTML=html();window.scrollTo(0,y);var s2=app.querySelector('.sh');if(s2&&so)s2.scrollTop=st}
 
