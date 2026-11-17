@@ -87,7 +87,8 @@ textarea.in{min-height:110px;padding:10px 12px;font:12px/1.4 monospace}
 .mob,.syncm,.hmob{display:none!important}
 .dsk{display:revert}
 .side{display:flex;flex-direction:column;gap:3px;width:230px;flex:none;position:sticky;top:0;height:100vh;padding:20px 12px;border-right:1px solid var(--line);background:var(--surface)}
-.side b{padding:2px 12px 14px;font-size:18px;font-weight:700}
+.side b{display:flex;align-items:center;gap:10px;padding:2px 12px 14px;font-size:18px;font-weight:700}
+.side b img{width:32px;height:32px;border-radius:9px;flex:none}
 .side button{display:flex;align-items:center;gap:12px;width:100%;min-height:46px;padding:0 12px;border:0;border-radius:10px;text-align:left;background:transparent;color:var(--muted);font-weight:500}
 .side button:hover{background:var(--seg)}
 .side button.on{background:var(--soft);color:var(--accent);font-weight:600}
@@ -365,7 +366,7 @@ var ICO={home:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 
 var NAV=[['home','Resumo','Resumo'],['cards','Cartões','Cartões'],['contas','Contas','Contas do mês'],['movs','Movim.','Movimentações'],['fixos','Fixos','Fixos']];
 function html(){var dark=D.theme!=='light',t=ui.tab,v=t==='home'?vHome():t==='cards'?vCards():t==='contas'?vContas():t==='movs'?vMovs():vFixos(),title=NAV.filter(function(n){return n[0]===t})[0][2];
 var hb='<div class="hb">'+tbtn('btn ic',dark)+bbtn('btn ic')+'</div>';
-return'<nav class="side"><b>Meu dinheiro</b><button class="new" data-a="open" data-v="mn">+ Novo</button>'+NAV.map(function(n){return'<button class="'+(t===n[0]?'on':'')+'" data-a="go" data-v="'+n[0]+'">'+ICO[n[0]]+n[2]+'</button>'}).join('')+'<div class="sp"></div><div class="icrow">'+tbtn('',dark)+bbtn('')+'</div><div class="syncs">'+syncLine()+'</div></nav>'+
+return'<nav class="side"><b><img src="icon-192.png" alt="" width="32" height="32">Meu dinheiro</b><button class="new" data-a="open" data-v="mn">+ Novo</button>'+NAV.map(function(n){return'<button class="'+(t===n[0]?'on':'')+'" data-a="go" data-v="'+n[0]+'">'+ICO[n[0]]+n[2]+'</button>'}).join('')+'<div class="sp"></div><div class="icrow">'+tbtn('',dark)+bbtn('')+'</div><div class="syncs">'+syncLine()+'</div></nav>'+
 '<main><div class="head"><h1 class="'+(t==='home'?'hmob':'')+'">'+title+'</h1>'+hb+'</div><div class="syncm">'+syncLine()+'</div>'+(noStore?'<div class="toast">Este navegador não permite salvar dados. Use o Backup para não perder o que lançar.</div>':'')+(t==='home'?'<div class="mob">'+mnav()+v+'</div><div class="dsk">'+safeD()+'</div>':v)+'</main>'+
 '<div class="bottom">'+NAV.map(function(n){return'<button class="'+(t===n[0]?'on':'')+'" data-a="go" data-v="'+n[0]+'">'+ICO[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')+'</div><button class="fab" data-a="open" data-v="mn" aria-label="Adicionar">+</button>'+sheet()+(ui.lg?loginView():'')}
 var app=document.getElementById('app');
